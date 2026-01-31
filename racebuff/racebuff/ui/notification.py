@@ -1,0 +1,121 @@
+#  RaceBuff is an open-source overlay application for racing simulation.
+#  Copyright (C) 2026 RaceBuff developers, see contributors.md file
+#
+#  This file is part of RaceBuff.
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+"""
+Notification
+"""
+
+from __future__ import annotations
+
+from PySide2.QtCore import Slot
+from PySide2.QtGui import QDesktopServices
+from PySide2.QtWidgets import (
+    QMenu,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
+
+from ..const_app import URL_RELEASE
+from ..locale_i18n import tr
+from ..setting import cfg
+from ..update import update_checker
+
+
+class NotifyBar(QWidget):
+    """Notify bar"""
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.presetlocked = QPushButton(tr("Preset Locked"))
+        self.presetlocked.setVisible(False)
+
+        self.spectate = QPushButton(tr("Spectate Mode Enabled"))
+        self.spectate.setVisible(False)
+
+        self.pacenotes = QPushButton(tr("Pace Notes Playback Enabled"))
+        self.pacenotes.setVisible(False)
+
+        self.hotkey = QPushButton(tr("Global Hotkey Enabled"))
+        self.hotkey.setVisible(False)
+
+        self.updates = UpdatesNotifyButton("")
+        self.updates.setVisible(False)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.presetlocked)
+        layout.addWidget(self.spectate)
+        layout.addWidget(self.pacenotes)
+        layout.addWidget(self.hotkey)
+        layout.addWidget(self.updates)
+        layout.setSpacing(0)
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
+
+    @Slot(bool)  # type: ignore[operator]
+    def refresh(self):
+        """Refresh & update style"""
+        self.presetlocked.setStyleSheet(
+            f"color: {cfg.notification['font_color_locked_preset']};"
+            f"background: {cfg.notification['bkg_color_locked_preset']};"
+        )
+        self.spectate.setStyleSheet(
+            f"color: {cfg.notification['font_color_spectate_mode']};"
+            f"background: {cfg.notification['bkg_color_spectate_mode']};"
+        )
+        self.pacenotes.setStyleSheet(
+            f"color: {cfg.notification['font_color_pace_notes_playback']};"
+            f"background: {cfg.notification['bkg_color_pace_notes_playback']};"
+        )
+        self.hotkey.setStyleSheet(
+            f"color: {cfg.notification['font_color_global_hotkey']};"
+            f"background: {cfg.notification['bkg_color_global_hotkey']};"
+        )
+
+
+class UpdatesNotifyButton(QPushButton):
+    """Updates notify button"""
+
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        version_menu = QMenu(self)
+
+        view_update = version_menu.addAction(tr("View Updates On GitHub"))
+        view_update.triggered.connect(self.open_release)
+        version_menu.addSeparator()
+
+        dismiss_msg = version_menu.addAction(tr("Dismiss"))
+        dismiss_msg.triggered.connect(self.hide)
+
+        self.setMenu(version_menu)
+
+    def open_release(self):
+        """Open release link"""
+        QDesktopServices.openUrl(URL_RELEASE)
+
+    @Slot(bool)  # type: ignore[operator]
+    def checking(self, checking: bool):
+        """Checking updates"""
+        if checking:
+            # Show checking message only with manual checking
+            self.setText(tr("Checking For Updates..."))
+            self.setVisible(update_checker.is_manual())
+        else:
+            # Hide message if no unpdates and not manual checking
+            self.setText(update_checker.message())
+            self.setVisible(update_checker.is_manual() or update_checker.is_updates())

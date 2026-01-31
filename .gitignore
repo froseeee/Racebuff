@@ -1,0 +1,37 @@
+# Build outputs
+build/
+*.exe
+*.obj
+*.o
+*.dll
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.user
+.vs/
+x64/
+Release/
+Debug/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake.tmp*
+
+# Logs and temp
+init_log.txt
+*.log
+$null
+
+# Python (if any at root)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE
+.idea/
+*.suo
+*.sln.docstates

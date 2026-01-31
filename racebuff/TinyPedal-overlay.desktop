@@ -1,0 +1,12 @@
+[Desktop Entry]
+Exec=/usr/local/bin/RaceBuff
+GenericName=Overlay for Racing Simulator
+Icon=/usr/local/share/RaceBuff/images/icon.png
+Name=RaceBuff
+Keywords=racebuff;overlay;rfactor2;lmu;iracing;
+Path=/usr/local/share/RaceBuff
+StartupNotify=true
+Terminal=false
+Type=Application
+StartupWMClass=RaceBuff
+Categories=Game

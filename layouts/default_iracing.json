@@ -1,0 +1,80 @@
+{
+  "overlays": [
+    {
+      "name": "relative",
+      "enabled": true,
+      "position": {"x": 50, "y": 50},
+      "size": {"width": 300, "height": 400},
+      "refresh_hz": 60,
+      "config": {
+        "show_gap": true,
+        "show_lap_diff": true,
+        "highlight_closest": true
+      }
+    },
+    {
+      "name": "standings",
+      "enabled": true,
+      "position": {"x": 400, "y": 50},
+      "size": {"width": 400, "height": 500},
+      "refresh_hz": 30,
+      "config": {
+        "rows": 15,
+        "show_class": true,
+        "show_pit_status": true
+      }
+    },
+    {
+      "name": "fuel",
+      "enabled": true,
+      "position": {"x": 850, "y": 50},
+      "size": {"width": 280, "height": 200},
+      "refresh_hz": 60,
+      "config": {
+        "show_laps_remaining": true,
+        "prediction_laps": 5
+      }
+    },
+    {
+      "name": "radar",
+      "enabled": true,
+      "position": {"x": 50, "y": 500},
+      "size": {"width": 200, "height": 200},
+      "refresh_hz": 60,
+      "config": {
+        "show_pit_indicator": true,
+        "show_distance_bars": true
+      }
+    },
+    {
+      "name": "inputs",
+      "enabled": true,
+      "position": {"x": 280, "y": 500},
+      "size": {"width": 250, "height": 150},
+      "refresh_hz": 60,
+      "config": {
+        "show_bars": true,
+        "show_values": true
+      }
+    },
+    {
+      "name": "fps",
+      "enabled": true,
+      "position": {"x": 10, "y": 10},
+      "size": {"width": 120, "height": 50},
+      "refresh_hz": 60,
+      "config": {
+        "show_frametime": false
+      }
+    }
+  ],
+  "settings": {
+    "default_font": "Courier New",
+    "font_size_small": 12,
+    "font_size_normal": 14,
+    "font_size_large": 16,
+    "telemetry_update_hz": 60,
+    "render_target_fps": 60,
+    "vsync_enabled": true
+  }
+}
