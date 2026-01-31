@@ -132,14 +132,14 @@ class Inputs(_reader.Inputs, _Adapter):
         return self._steering_normalized()
 
     def _steering_normalized(self) -> float:
-        """Steering -1..1 from iRacing SteeringWheelAngle (radians). Range ±450° = ±half of 900°."""
+        """Steering -1..1 from iRacing SteeringWheelAngle (radians). Range ±450° = ±half of 900°. Sign inverted so overlay left = wheel left."""
         import math
         angle_rad = self.reader.get_float("steering_angle", 0.0)
         range_deg_half = 450.0  # ±450° for 900° total
         if range_deg_half <= 0:
             return 0.0
         range_rad_half = range_deg_half * math.pi / 180.0
-        return max(-1.0, min(1.0, angle_rad / range_rad_half))
+        return max(-1.0, min(1.0, -angle_rad / range_rad_half))
 
     def steering_shaft_torque(self, index: int | None = None) -> float:
         return self.reader.get_float("steering_wheel_torque", 0.0)
