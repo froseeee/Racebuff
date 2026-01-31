@@ -35,6 +35,22 @@
 
 ---
 
+## Поддерживаемые симуляторы
+
+| Симулятор | Требования | Windows | Linux |
+|-----------|------------|:-------:|:-----:|
+| **iRacing** | Плагин не нужен | Да | Нет |
+| **Le Mans Ultimate (LMU)** | Плагин не нужен (встроенный API) или rF2 Shared Memory Map | Да | Да (с плагином) |
+| **rFactor 2** | Плагин rF2 Shared Memory Map | Да | Да |
+
+- **iRacing** — полная поддержка через официальный SDK (`pyirsdk`). В настройках: **API телеметрии → iRacing**.
+- **Le Mans Ultimate** — встроенная поддержка без плагина (Windows) или через плагин rF2 Shared Memory (Windows/Linux). В настройках: **API телеметрии → Le Mans Ultimate**.
+- **rFactor 2** — через плагин [rF2 Shared Memory Map](https://github.com/TinyPedal/TinyPedal/wiki). В настройках: **API телеметрии → rFactor 2**.
+
+Режим отображения игры: **Borderless** или **Windowed** (Fullscreen не поддерживается).
+
+---
+
 ## iRacing — что поддерживается
 
 - **Relative / Standings** — позиции, гэпы, классы, пит-лейн, порядок отрисовки.
@@ -53,9 +69,10 @@
 
 ## Требования
 
-- **Windows** (iRacing и LMU без плагина — только Windows).
+- **Windows** — для iRacing и LMU без плагина. rFactor 2 и LMU (legacy) с плагином — также **Linux**.
 - Режим отображения игры: **Borderless** или **Windowed** (не Fullscreen).
 - Для iRacing: `pip install pyirsdk` (уже в `requirements.txt` в racebuff).
+- Для rFactor 2 / LMU (с плагином): установите [rF2 Shared Memory Map Plugin](https://github.com/TinyPedal/TinyPedal/wiki); подмодули pyRfactor2SharedMemory и pyLMUSharedMemory включены в репозиторий.
 
 ---
 
